@@ -12,4 +12,9 @@ class CloneWarsApp < Sinatra::Base
   get '/about' do
     erb :"about/about"
   end
+
+  get '/about/mission-vision-values' do
+    erb :"about/mission_vision_values"
+  end
+
 end
