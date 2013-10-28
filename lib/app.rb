@@ -13,8 +13,16 @@ class CloneWarsApp < Sinatra::Base
     erb :"about/about"
   end
 
-  get '/about/mission-vision-values' do
-    erb :"about/mission_vision_values"
+  get '/about/:about' do
+    erb :"about/about_main", :locals => {param: params[:about]}
   end
+
+  # get '/about/mission-vision-values' do
+  #   erb :"about/mission_vision_values"
+  # end
+
+  # get '/about/contact_and_hours' do
+  #   erb :"about/contact_and_hours"
+  # end
 
 end
