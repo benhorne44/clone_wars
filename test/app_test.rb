@@ -27,4 +27,15 @@ class AppTest < Minitest::Test
     assert last_response.ok?
   end
 
+  def test_it_finds_contact_and_hours
+    get '/about/contact_and_hours'
+    assert last_response.ok?
+  end
+
+  def test_it_finds_history_page
+    get '/about/contact_and_hours'
+    assert last_response.ok?
+    # assert last_response.body.include? 'planted long, long ago'
+  end
+
 end
