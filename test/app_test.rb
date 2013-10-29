@@ -95,7 +95,95 @@ class AppTest < Minitest::Test
     assert_match /Please check out our/, last_response.body
   end
 
-  def test_
+  def test_it_finds_bidness_partners
+    get '/links/business-partners'
+    assert last_response.ok?
+    assert_match /nto the hands o/, last_response.body
+  end
+
+  def test_it_finds_homies
+    get '/links/friends'
+    assert last_response.ok?
+    assert_match /Friends/, last_response.body
+  end
+
+  def test_it_finds_we_love
+    get '/links/we-love'
+    assert last_response.ok?
+    assert_match /Thank you to Smartwool/, last_response.body
+  end
+
+  def test_it_finds_programs
+    get '/programs'
+    assert last_response.ok?
+    assert_match /Where kids "earn"/, last_response.body
+  end
+
+  def test_it_finds_bike_camp
+    get '/programs/bike-camp'
+    assert last_response.ok?
+    assert_match /get around town safely/, last_response.body
+  end
+
+  def test_it_finds_bike_rodeo
+    get '/programs/bike-rodeo'
+    assert last_response.ok?
+    assert_match /children 3-13 years of age/,last_response.body
+  end
+
+  def test_it_finds_classes
+    get '/programs/classes'
+    assert last_response.ok?
+    assert_match /essential solvents and lubricants/,last_response.body
+  end
+
+  def test_it_finds_earn_a_bike
+    get '/programs/earn-a-bike'
+    assert last_response.ok?
+    assert_match /checking for worn\/broken parts/,last_response.body
+  end
+
+  def test_it_finds_fix_your_bike
+    get '/programs/fix-your-bike'
+    assert last_response.ok?
+    assert_match /bike clout, cool factor/,last_response.body
+  end
+
+  def test_it_finds_support
+    get '/support'
+    assert last_response.ok?
+    assert_match /we can put it to good use/, last_response.body
+  end
+
+  def test_it_finds_donate_bikes
+    get '/support/donate-bikes'
+    assert last_response.ok?
+    assert_match /bells, baskets, bike flags/, last_response.body
+  end
+
+  def test_it_finds_memberships
+    get '/support/memberships'
+    assert last_response.ok?
+    assert_match /a pesky percentage/, last_response.body
+  end
+
+  def test_it_finds_organizing_drive
+    get '/support/organizing-drive'
+    assert last_response.ok?
+    assert_match /effective and enjoyable/, last_response.body
+  end
+
+  def test_it_finds_volunteer
+    get '/support/volunteer'
+    assert last_response.ok?
+    assert_match /Craigslist posting, data entry/, last_response.body
+  end
+
+  def test_it_finds_wish_list
+    get '/support/wish-list'
+    assert last_response.ok?
+    assert_match /Small Parts Organizer/, last_response.body
+  end
 
 
 end

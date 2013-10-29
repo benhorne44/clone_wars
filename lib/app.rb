@@ -33,4 +33,24 @@ class CloneWarsApp < Sinatra::Base
     erb :"links/link"
   end
 
+  get '/links/:link' do
+    erb :"links/links_views", :locals => {param: params[:link]}
+  end
+
+  get '/programs' do
+    erb :"programs/programs"
+  end
+
+  get '/programs/:program' do
+    erb :"programs/programs_views", :locals => {param: params[:program]}
+  end
+
+  get '/support' do
+    erb :"support/support"
+  end
+
+  get '/support/:support' do
+    erb :"support/support_views", :locals => {param: params[:support]}
+  end
+
 end
