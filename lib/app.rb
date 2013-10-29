@@ -14,15 +14,23 @@ class CloneWarsApp < Sinatra::Base
   end
 
   get '/about/:about' do
-    erb :"about/about_main", :locals => {param: params[:about]}
+    erb :"about/about_views", :locals => {param: params[:about]}
   end
 
-  # get '/about/mission-vision-values' do
-  #   erb :"about/mission_vision_values"
-  # end
+  get '/bike-shop' do
+    erb :"bike_shop/bike_shop"
+  end
 
-  # get '/about/contact_and_hours' do
-  #   erb :"about/contact_and_hours"
-  # end
+  get '/bike-shop/:bike' do
+    erb :"bike_shop/bike_shop_views", :locals => {param: params[:bike]}
+  end
+
+  get '/events/:events' do
+    erb :"events/events_views", :locals => {param: params[:events]}
+  end
+
+  get '/links' do
+    erb :"links/link"
+  end
 
 end
