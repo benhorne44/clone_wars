@@ -1,4 +1,6 @@
 require 'sequel'
+require 'redcarpet'
+require 'reverse_markdown'
 
 class PageStore
 
@@ -33,6 +35,7 @@ class PageStore
   end
 
   def self.convert_to_html
+    TextFilter.to_html(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
                                         :autolink => true,
                                         :space_after_headers => true)
