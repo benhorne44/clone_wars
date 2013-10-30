@@ -8,6 +8,7 @@ class CloneWarsApp < Sinatra::Base
 
   set :method_override, true
   set :root, 'lib/app'
+  set :counter => 0
 
   get '/' do
     page = PageStore.find('/')
@@ -138,6 +139,7 @@ class CloneWarsApp < Sinatra::Base
   end
 
   helpers do
+
     def protected!
       return if authorized?
       headers['WWW-Authenticate'] = "Basic realm='Restricted Area'"
@@ -148,6 +150,7 @@ class CloneWarsApp < Sinatra::Base
       @auth ||= Rack::Auth::Basic::Request.new(request.env)
       @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
     end
+
   end
 
 

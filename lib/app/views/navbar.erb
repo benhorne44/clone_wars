@@ -132,16 +132,54 @@
   </div>
 </div>
 <% unless authorized? %>
-<div class="alert alert-dismissable alert-danger">
-  <button type="button" class="close" data-dismiss="alert">×</button>
-  <h4>Hey You!</h4>
-  <p>We are closed for Thanksgiving... gobble gObBle GOBBLE!!!!!!!!! <a href="/about/contact" class="alert-link">Here are our normal business hours</a>.</p>
-</div>
+
+  <% if settings.counter == 10 %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <h4>Can't wait for Friday?</h4>
+      <p>Everybody dance...</p>
+    </div>
+    <% settings.counter += 1 %>
+  <% elsif settings.counter == 11 %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <h4>Hey You!</h4>
+      <iframe style='margin: 8%' width="560" height="315" src="//www.youtube.com/embed/kfVsfOSbJY0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <% settings.counter = 0 %>
+
+  <% elsif settings.counter != 3 %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <h4>Hey You!</h4>
+      <p>We are closed for Thanksgiving... gobble gObBle GOBBLE!!!!!!!!! </p>
+      <p><a href="/about/contact" class="alert-link">Here are our normal business hours</a>.</p>
+    </div>
+
+  <% settings.counter += 1 %>
+
+
+  <% elsif settings.counter == 3 %>
+
+  <div class="alert alert-dismissable alert-danger">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4>Hey You!</h4>
+    <iframe style='margin: 8%' width="560" height="315" src="//www.youtube.com/embed/ZSBq8geuJk0" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+   <% settings.counter += 1 %>
+
+
+  <% end %>
 <% end %>
+
+
 <!-- --------------------------------------------------- -->
+
+
 <% if authorized? %>
 <div id="myCarousel" class="carousel slide">
-  <div class="navbar-wrapper">
+  <div class="navbar-wrapper" >
     <div class="container">
       <div class="navbar navbar-inverse navbar-static-top">
         <div class="container">
