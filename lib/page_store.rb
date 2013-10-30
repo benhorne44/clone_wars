@@ -24,22 +24,15 @@ class PageStore
 
   def self.find(path)
     pages[:path => path]
+    # binding.pry
   end
 
-  def self.save(data={})
+  def self.create(data={})
     pages.insert(data)
   end
 
   def self.update(path, data={})
     pages.where(:path => path).update(data)
-  end
-
-  def self.convert_to_html
-    TextFilter.to_html(text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-                                        :autolink => true,
-                                        :space_after_headers => true)
-
   end
 
 end

@@ -3,9 +3,10 @@
   "contact" => :"about/contact_and_hours",
   "history" => :"about/history",
   "staff-board" => :"about/staff_and_board",
-  "privacy-policy" => :"about/privacy_policy"
+  "privacy-policy" => :"about/privacy_policy",
+  "board-of-directors" => :"about/board_of_directors"
 } %>
 
-<%= erb hash[param] %>
+<%= erb hash[param], :locals => {text: text} %>
 
 

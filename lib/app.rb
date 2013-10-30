@@ -1,20 +1,30 @@
 require 'sinatra/base'
 
+require './lib/page_store'
+require './lib/text-converter'
+require 'pry'
+
 class CloneWarsApp < Sinatra::Base
 
   set :method_override, true
   set :root, 'lib/app'
 
   get '/' do
-    erb :index
+    page = PageStore.find('/')
+    text = TextConverter.to_html(page[:text])
+    erb :index, :locals => {text: text}
   end
 
   get '/about' do
-    erb :"about/about"
+    page = PageStore.find("/about")
+    text = TextConverter.to_html(page[:text])
+    erb :"about/about", :locals => {text: text}
   end
 
-  get '/about/:about' do
-    erb :"about/about_views", :locals => {param: params[:about]}
+  get '/about/:about' do |slug|
+    page = PageStore.find("/about/#{slug}")
+    text = TextConverter.to_html(page[:text])
+    erb :"about/about_views", :locals => {param: slug, text: text}
   end
 
   get '/bike-shop' do
