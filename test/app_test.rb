@@ -200,13 +200,18 @@ class AppTest < Minitest::Test
     assert_match /Small Parts Organizer/, last_response.body
   end
 
-  def test_it_finds_admin_home_page
-    get '/admin'
-    assert last_response.ok?
-  end
+  # def test_it_finds_admin_home_page
+  #   get '/admin'
+  #   assert last_response.ok?
+  # end
 
   # def test_it_posts_admin
   #   post '/admin', :page => {}
   # end
+
+  def test_without_authentication
+    get '/admin'
+    assert_equal 401, last_response.status
+  end
 
 end

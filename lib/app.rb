@@ -40,64 +40,74 @@ class CloneWarsApp < Sinatra::Base
   end
 
   get '/admin' do
+    protected!
     page = PageStore.find('/')
     text = (page[:text])
     erb :"admin_views", :locals => {param: "/", text: text}
   end
 
-  put '/admin' do 
+  put '/admin' do
+    protected!
     page = params[:page]
     PageStore.update("/", :text => page[:text].strip)
     redirect "/admin"
   end
 
   get '/admin/about' do
+    protected!
     page = PageStore.find('/about')
     text = (page[:text])
     erb :"admin_about", :locals => {param: "about", text: text}
   end
 
-  put '/admin/about' do 
+  put '/admin/about' do
+    protected!
     page = params[:page]
     PageStore.update("/about", :text => page[:text].strip)
     redirect "/admin/about"
   end
 
   get '/admin/about/:slug' do |slug|
+    protected!
     page = PageStore.find("/about/#{slug}")
     text = (page[:text])
     erb :"admin_about", :locals => {param: "#{slug}", text: text}
   end
 
   put '/admin/about/:slug' do |slug|
+    protected!
     page = params[:page]
     PageStore.update("/about/#{slug}", :text => page[:text].strip)
     redirect "/admin/about/#{slug}"
-  end 
+  end
 
   get '/admin/programs' do
+    protected!
     page = PageStore.find('/programs')
     text = (page[:text])
     erb :"admin_programs", :locals => {param: "programs", text: text}
   end
 
-  put '/admin/programs' do 
+  put '/admin/programs' do
+    protected!
     page = params[:page]
     PageStore.update("/programs", :text => page[:text].strip)
     redirect "/admin/programs"
   end
 
   get '/admin/programs/:slug' do |slug|
+    protected!
     page = PageStore.find("/programs/#{slug}")
     text = (page[:text])
     erb :"admin_programs", :locals => {param: "/#{slug}", text: text}
   end
 
   put '/admin/programs/:slug' do |slug|
+    protected!
     page = params[:page]
     PageStore.update("/programs/#{slug}", :text => page[:text].strip)
     redirect "/admin/programs/#{slug}"
-  end 
+  end
 
   get '/bike-shop' do
     erb :"bike_shop/bike_shop"
@@ -127,6 +137,18 @@ class CloneWarsApp < Sinatra::Base
     erb :"support/support_views", :locals => {param: params[:support]}
   end
 
+  helpers do
+    def protected!
+      return if authorized?
+      headers['WWW-Authenticate'] = "Basic realm='Restricted Area'"
+      halt 401, 'Not authorized\n'
+    end
+
+    def authorized?
+      @auth ||= Rack::Auth::Basic::Request.new(request.env)
+      @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
+    end
+  end
 
 
 end
