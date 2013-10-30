@@ -131,6 +131,13 @@
     </div>
   </div>
 </div>
+<% unless authorized? %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <h4>Hey You!</h4>
+  <p>We are closed for Thanksgiving... gobble gObBle GOBBLE!!!!!!!!! <a href="/about/contact" class="alert-link">Here are our normal business hours</a>.</p>
+</div>
+<% end %>
 <!-- --------------------------------------------------- -->
 <% if authorized? %>
 <div id="myCarousel" class="carousel slide">
