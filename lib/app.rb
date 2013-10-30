@@ -27,6 +27,78 @@ class CloneWarsApp < Sinatra::Base
     erb :"about/about_views", :locals => {param: slug, text: text}
   end
 
+  get '/programs' do
+    page = PageStore.find("/programs")
+    text = TextConverter.to_html(page[:text])
+    erb :page_view, :locals => {:text => text}
+  end
+
+  get '/programs/:slug' do |slug|
+    page = PageStore.find("/programs/#{slug}")
+    text = TextConverter.to_html(page[:text])
+    erb :"programs/programs_views", :locals => {param: slug, text: text}
+  end
+
+  get '/admin' do
+    page = PageStore.find('/')
+    text = (page[:text])
+    erb :"admin_views", :locals => {param: "/", text: text}
+  end
+
+  put '/admin' do 
+    page = params[:page]
+    PageStore.update("/", :text => page[:text].strip)
+    redirect "/admin"
+  end
+
+  get '/admin/about' do
+    page = PageStore.find('/about')
+    text = (page[:text])
+    erb :"admin_about", :locals => {param: "about", text: text}
+  end
+
+  put '/admin/about' do 
+    page = params[:page]
+    PageStore.update("/about", :text => page[:text].strip)
+    redirect "/admin/about"
+  end
+
+  get '/admin/about/:slug' do |slug|
+    page = PageStore.find("/about/#{slug}")
+    text = (page[:text])
+    erb :"admin_about", :locals => {param: "#{slug}", text: text}
+  end
+
+  put '/admin/about/:slug' do |slug|
+    page = params[:page]
+    PageStore.update("/about/#{slug}", :text => page[:text].strip)
+    redirect "/admin/about/#{slug}"
+  end 
+
+  get '/admin/programs' do
+    page = PageStore.find('/programs')
+    text = (page[:text])
+    erb :"admin_programs", :locals => {param: "programs", text: text}
+  end
+
+  put '/admin/programs' do 
+    page = params[:page]
+    PageStore.update("/programs", :text => page[:text].strip)
+    redirect "/admin/programs"
+  end
+
+  get '/admin/programs/:slug' do |slug|
+    page = PageStore.find("/programs/#{slug}")
+    text = (page[:text])
+    erb :"admin_programs", :locals => {param: "/#{slug}", text: text}
+  end
+
+  put '/admin/programs/:slug' do |slug|
+    page = params[:page]
+    PageStore.update("/programs/#{slug}", :text => page[:text].strip)
+    redirect "/admin/programs/#{slug}"
+  end 
+
   get '/bike-shop' do
     erb :"bike_shop/bike_shop"
   end
@@ -47,18 +119,6 @@ class CloneWarsApp < Sinatra::Base
     erb :"links/links_views", :locals => {param: params[:link]}
   end
 
-  get '/programs' do
-    page = PageStore.find("/programs")
-    text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {:text => text}
-  end
-
-  get '/programs/:slug' do |slug|
-    page = PageStore.find("/programs/#{slug}")
-    text = TextConverter.to_html(page[:text])
-    erb :"programs/programs_views", :locals => {param: slug, text: text}
-  end
-
   get '/support' do
     erb :"support/support"
   end
@@ -66,5 +126,7 @@ class CloneWarsApp < Sinatra::Base
   get '/support/:support' do
     erb :"support/support_views", :locals => {param: params[:support]}
   end
+
+
 
 end
