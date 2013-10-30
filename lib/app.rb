@@ -18,13 +18,13 @@ class CloneWarsApp < Sinatra::Base
   get '/about' do
     page = PageStore.find("/about")
     text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {text: text}
+    erb :"about/about", :locals => {text: text}
   end
 
-  get '/about/:about' do |slug|
+  get '/about/:slug' do |slug|
     page = PageStore.find("/about/#{slug}")
     text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {param: slug, text: text}
+    erb :"about/about_views", :locals => {param: slug, text: text}
   end
 
   get '/bike-shop' do
@@ -50,11 +50,13 @@ class CloneWarsApp < Sinatra::Base
   get '/programs' do
     page = PageStore.find("/programs")
     text = TextConverter.to_html(page[:text])
-    erb :"programs/programs"
+    erb :page_view, :locals => {:text => text}
   end
 
-  get '/programs/:program' do
-    erb :"programs/programs_views", :locals => {param: params[:program]}
+  get '/programs/:slug' do |slug|
+    page = PageStore.find("/programs/#{slug}")
+    text = TextConverter.to_html(page[:text])
+    erb :page_view, :locals => {param: slug, text: text}
   end
 
   get '/support' do
