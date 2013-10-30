@@ -12,7 +12,7 @@ class CloneWarsApp < Sinatra::Base
   get '/' do
     page = PageStore.find('/')
     text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {text: text}
+    erb :index, :locals => {text: text}
   end
 
   get '/about' do
@@ -56,7 +56,7 @@ class CloneWarsApp < Sinatra::Base
   get '/programs/:slug' do |slug|
     page = PageStore.find("/programs/#{slug}")
     text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {param: slug, text: text}
+    erb :"programs/programs_views", :locals => {param: slug, text: text}
   end
 
   get '/support' do
