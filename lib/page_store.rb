@@ -24,7 +24,6 @@ class PageStore
 
   def self.find(path)
     pages[:path => path]
-    # binding.pry
   end
 
   def self.create(data={})

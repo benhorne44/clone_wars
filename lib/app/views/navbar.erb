@@ -1,4 +1,4 @@
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" style='z-index: 10'>
   <div class="navbar-wrapper">
     <div class="container">
       <div class="navbar navbar-inverse navbar-static-top">
@@ -140,6 +140,7 @@
       <p>Everybody dance...</p>
     </div>
     <% settings.counter += 1 %>
+
   <% elsif settings.counter == 11 %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert">×</button>
@@ -174,11 +175,11 @@
 <% end %>
 
 
-<!-- --------------------------------------------------- -->
+<!-- __________________________ -->
 
 
 <% if authorized? %>
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" style='z-index: 1'>
   <div class="navbar-wrapper" >
     <div class="container">
       <div class="navbar navbar-inverse navbar-static-top">

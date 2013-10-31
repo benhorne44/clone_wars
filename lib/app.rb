@@ -11,40 +11,24 @@ class CloneWarsApp < Sinatra::Base
   set :counter => 0
 
   get '/' do
-    page = PageStore.find('/')
-    text = TextConverter.to_html(page[:text])
+    text = converted_page('/')
     erb :index, :locals => {text: text}
-  end
-
-  get '/about' do
-    page = PageStore.find("/about")
-    text = TextConverter.to_html(page[:text])
-    erb :"about/about", :locals => {text: text}
-  end
-
-  get '/about/:slug' do |slug|
-    page = PageStore.find("/about/#{slug}")
-    text = TextConverter.to_html(page[:text])
-    erb :"about/about_views", :locals => {param: slug, text: text}
-  end
-
-  get '/programs' do
-    page = PageStore.find("/programs")
-    text = TextConverter.to_html(page[:text])
-    erb :page_view, :locals => {:text => text}
-  end
-
-  get '/programs/:slug' do |slug|
-    page = PageStore.find("/programs/#{slug}")
-    text = TextConverter.to_html(page[:text])
-    erb :"programs/programs_views", :locals => {param: slug, text: text}
   end
 
   get '/admin' do
     protected!
     page = PageStore.find('/')
-    text = (page[:text])
-    erb :"admin_views", :locals => {param: "/", text: text}
+    erb :edit, :locals => {text: page[:text], path: nil}
+  end
+
+  get '/admin/*' do
+    page = PageStore.find("/#{params[:splat].first}")
+    erb :edit, :locals => {text: page[:text], path: page[:path]}
+  end
+
+  get '/*' do
+    text = converted_page("/#{params[:splat].first}")
+    erb :index, :locals => {text: text}
   end
 
   put '/admin' do
@@ -54,61 +38,19 @@ class CloneWarsApp < Sinatra::Base
     redirect "/admin"
   end
 
-  get '/admin/about' do
-    protected!
-    page = PageStore.find('/about')
-    text = (page[:text])
-    erb :"admin_about", :locals => {param: "about", text: text}
-  end
-
-  put '/admin/about' do
+  put '/admin/*' do
     protected!
     page = params[:page]
-    PageStore.update("/about", :text => page[:text].strip)
-    redirect "/admin/about"
+    PageStore.update("/#{params[:splat].first}", :text => page[:text].strip)
+    redirect "/#{params[:splat].first}"
   end
 
-  get '/admin/about/:slug' do |slug|
-    protected!
-    page = PageStore.find("/about/#{slug}")
-    text = (page[:text])
-    erb :"admin_about", :locals => {param: "#{slug}", text: text}
+  def converted_page(path)
+    page = PageStore.find(path)
+    TextConverter.to_html(page[:text])
   end
 
-  put '/admin/about/:slug' do |slug|
-    protected!
-    page = params[:page]
-    PageStore.update("/about/#{slug}", :text => page[:text].strip)
-    redirect "/admin/about/#{slug}"
-  end
-
-  get '/admin/programs' do
-    protected!
-    page = PageStore.find('/programs')
-    text = (page[:text])
-    erb :"admin_programs", :locals => {param: "programs", text: text}
-  end
-
-  put '/admin/programs' do
-    protected!
-    page = params[:page]
-    PageStore.update("/programs", :text => page[:text].strip)
-    redirect "/admin/programs"
-  end
-
-  get '/admin/programs/:slug' do |slug|
-    protected!
-    page = PageStore.find("/programs/#{slug}")
-    text = (page[:text])
-    erb :"admin_programs", :locals => {param: "/#{slug}", text: text}
-  end
-
-  put '/admin/programs/:slug' do |slug|
-    protected!
-    page = params[:page]
-    PageStore.update("/programs/#{slug}", :text => page[:text].strip)
-    redirect "/admin/programs/#{slug}"
-  end
+  # _________________________
 
   get '/bike-shop' do
     erb :"bike_shop/bike_shop"

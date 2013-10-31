@@ -25,13 +25,13 @@ class AppTest < Minitest::Test
   end
 
   def test_it_finds_mission_values_page
-    # skip
+    skip
     get '/about/mission-vision-and-values'
     assert_match /We envision a world /, last_response.body
   end
 
   def test_it_finds_contact_and_hours
-    # skip
+    skip
     get '/about/contact'
     assert last_response.ok?
     assert_match /We are closed Sundays November-March./, last_response.body
@@ -44,21 +44,21 @@ class AppTest < Minitest::Test
   end
 
   def test_it_finds_history_page
-    # skip
+    skip
     get '/about/history'
     assert last_response.ok?
     assert_match /planted long, long ago/, last_response.body
   end
 
   def test_it_finds_privacy_policy
-    # skip
+    skip
     get 'about/privacy-policy'
     assert last_response.ok?
     assert_match /For further information/, last_response.body
   end
 
   def test_it_finds_staff_and_board
-    # skip
+    skip
     get 'about/staff-board'
     assert last_response.ok?
     assert_match /all these friendly people/, last_response.body

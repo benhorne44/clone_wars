@@ -1,0 +1,12 @@
+<% if path.nil? %>
+  <form action="/admin" method="POST">
+<% else %>
+  <form action="/admin<%= path %>" method="POST">
+<% end %>
+
+    <textarea class="form-control" name="page[text]" rows="20" id="textArea">
+      <%= text %>
+    </textarea>
+    <button type="submit" class="btn btn-primary">SUBMIT</button>
+    <input type="hidden" name="_method" value="PUT" />
+  </form>
